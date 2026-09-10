@@ -1,0 +1,26 @@
+name: QED_LEAF tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m unittest discover -s tests -v
+  pilot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          lean-version: leanprover/lean4:v4.33.1
+      - run: python -m qed_leaf analyze --source examples/pilot/source --policy examples/pilot/qed-leaf-policy.json --output .qed-leaf --local-trust --timeout 120

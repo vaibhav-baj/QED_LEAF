@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "targets": ["pilot"],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "required_checkers": ["lean-build", "target-exists", "axiom-policy", "sorry-free"],
+  "track": "completed-proof",
+  "toolchain": "leanprover/lean4:v4.33.1"
+}
